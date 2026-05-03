@@ -34,7 +34,7 @@ jobs:
       # Edge runs in headless mode via DISPLAY=:99 set above.
       # -e = show full stack traces, -fae = run all tests before failing
       - name: Run Tests with Maven
-        run: mvn -B test --file pom.xml -e -fae
+        run: mvn clean test -DsuiteXmlFile=testng.xml
         env:
           DISPLAY: :99
 
