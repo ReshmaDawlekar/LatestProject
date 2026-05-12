@@ -1,6 +1,7 @@
 package WebDriverManager;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.events.EventFiringDecorator;
 
 public class WebDriverFactory {
 	
@@ -19,7 +20,11 @@ public class WebDriverFactory {
  }
 
 	    public static void setWebDriver(WebDriver dr) {
-	    	driverThread.set(dr);
+	    	MyWebDriverListner listener=new MyWebDriverListner();	    	
+	    	EventFiringDecorator decorator = new EventFiringDecorator<>(listener);
+	    	WebDriver decoratedDriver = decorator.decorate(dr);
+	        // Set the thread-safe driver
+	        driverThread.set(decoratedDriver);
 	    }
 
 	    // ✅ This is what cleans up after each scenario
