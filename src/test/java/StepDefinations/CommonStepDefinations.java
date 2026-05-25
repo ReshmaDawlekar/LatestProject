@@ -3,6 +3,7 @@ package StepDefinations;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
@@ -60,22 +61,26 @@ public class CommonStepDefinations {
 	
 	   @AfterStep("@Web")
 	    public void takeScreenshot(Scenario sc) throws IOException {
-	        if (sc.isFailed()) {
+//	        if (sc.isFailed()) {
 	            WebDriver driver = WebDriverFactory.getDriver();
 	            if (driver != null) {
 	                try {
 	                    byte[] source = ((TakesScreenshot) driver)
 	                        .getScreenshotAs(OutputType.BYTES);
 	                    sc.attach(source, "image/png", sc.getName());
-						ExtentTestManager.getExtent().addScreenCaptureFromBase64String(
-								java.util.Base64.getEncoder().encodeToString(source), sc.getName());
+	                    String base64Screenshot = Base64.getEncoder().encodeToString(source);
+
+	                    // Step 3: Add to Extent Report
+	                    ExtentTestManager.getExtent()
+	                        .addScreenCaptureFromBase64String(base64Screenshot, sc.getName());
+						
 	                } catch (Exception e) {
 	                    System.out.println("Screenshot failed for thread "
 	                        + Thread.currentThread().getId()
 	                        + ": " + e.getMessage());
 	                }
 	            }
-	        }
+//	        }
 	    }
 @Given("User launches URL")
 public void launchURL() {

@@ -45,7 +45,7 @@ public class Drivermanager {
 					option.setPageLoadStrategy(PageLoadStrategy.NORMAL);
 					option.addArguments("--start-maximized");
 					option.addArguments("--headless");
-					option.setExperimentalOption("pref",map);
+					option.setExperimentalOption("prefs",map);
 					driver =new ChromeDriver(option);
 					WebDriverFactory.setWebDriver(driver);
 //					storeSession();
