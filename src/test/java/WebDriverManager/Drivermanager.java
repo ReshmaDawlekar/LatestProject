@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -38,10 +39,13 @@ public class Drivermanager {
 				switch(GetConfigData.getBrowser().toLowerCase())
 				{
 				case "chrome":
+					Map<String,Object> map=new HashMap<String, Object>();
+					map.put("download.default_directory", System.getProperty("user.dir")+"//src//test//resources//downloads");					
 					ChromeOptions option=new ChromeOptions();
 					option.setPageLoadStrategy(PageLoadStrategy.NORMAL);
 					option.addArguments("--start-maximized");
 					option.addArguments("--headless");
+					option.setExperimentalOption("pref",map);
 					driver =new ChromeDriver(option);
 					WebDriverFactory.setWebDriver(driver);
 //					storeSession();

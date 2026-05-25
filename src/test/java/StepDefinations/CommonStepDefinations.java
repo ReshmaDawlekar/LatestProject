@@ -10,7 +10,12 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+
 import PageObjects.CommonPageObjects;
+import Utilities.ExtentManager;
+import Utilities.ExtentTestManager;
 import WebDriverManager.Drivermanager;
 import WebDriverManager.GetConfigData;
 import WebDriverManager.WebDriverFactory;
@@ -26,14 +31,16 @@ import io.cucumber.java.en.When;
 public class CommonStepDefinations {
 	private static final String OUTPUTTYPE = null;
 	WebDriver driver;
-	
+	ExtentReports extent=ExtentManager.getInstance();
 	
 		
 	@Before("@Web")
-	public  void startDriver()
+	public  void startDriver(Scenario scenario)
 	{
 		
-		Drivermanager.intialiseBrowser();		
+		Drivermanager.intialiseBrowser();
+		ExtentTest test=extent.createTest(scenario.getName());
+		ExtentTestManager.setExtent(test);
 	}
 	
 	@After("@Web")
@@ -41,7 +48,10 @@ public class CommonStepDefinations {
 	{
 		WebDriverFactory.getDriver().quit();
 	}
-	
+	@After("@Web")
+	public static void flushReport() {
+		ExtentManager.getInstance().flush();
+	}
 	@BeforeStep("@Web")
 	public void tearUp() {
 		
@@ -57,6 +67,8 @@ public class CommonStepDefinations {
 	                    byte[] source = ((TakesScreenshot) driver)
 	                        .getScreenshotAs(OutputType.BYTES);
 	                    sc.attach(source, "image/png", sc.getName());
+						ExtentTestManager.getExtent().addScreenCaptureFromBase64String(
+								java.util.Base64.getEncoder().encodeToString(source), sc.getName());
 	                } catch (Exception e) {
 	                    System.out.println("Screenshot failed for thread "
 	                        + Thread.currentThread().getId()

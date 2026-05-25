@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -22,31 +23,13 @@ import Utilities.BuildJsonPayLoad.Location;
 
 public class RestAssuredPOC {
 
-	@Test
-	public void getPlaceTest() {
-		
-		BuildJsonPayload p=new BuildJsonPayload();
-		
-		p.setAccuracy(50);
-		p.setAddress("29, side layout, cohen 09");
-		p.setLanguage("French-IN");
-		p.setName("Rahul Shetty Academy");
-		p.setPhone_number("(+91) 983 893 3937");
-		p.setWebsite("http://rahulshettyacademy.com");
-		List<String> typesval=new ArrayList<String>();
-		typesval.add("shoe park");
-		typesval.add("shop");
-		p.setTypes(typesval);		
-		Location l=new Location();
-		l.setLat(-38.383494);
-		l.setLng(33.427362);
-		p.setLocation(l);
-		
-		
+	@Test(dataProvider="data")
+	public void getPlaceTest(String lat,String lng) {
+				
 		RequestSpecification req=new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com")
 				.addQueryParam("key","qaclick123")
 				.addHeader("Content-Type","application/json")
-				.setBody(p).build();
+				.setBody(PayLoad.getPayLoad(lat,lng)).build();
 		ResponseSpecification res= new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
 
 		RestAssured.baseURI = "https://rahulshettyacademy.com";
@@ -73,8 +56,6 @@ public class RestAssuredPOC {
 		.statusCode(200)
 		.body("msg", equalTo("Address successfully updated"));
 
-
-
 		//get place request 
 		given().spec(req)
 		.queryParam("place_id", place_id)
@@ -84,6 +65,12 @@ public class RestAssuredPOC {
 		.then().spec(res)
 		.body("address", equalTo("101 Mountain View, USA"));
 
+	}
+	
+	@DataProvider(name="data")
+	public Object[][] getData()
+	{
+		return new Object[][] {{"-3.2","3.4"},{"-3.6","3.8"}};
 	}
 }
 

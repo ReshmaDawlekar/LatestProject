@@ -1,14 +1,23 @@
 package RestAssured;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.testng.annotations.DataProvider;
+
+import Utilities.BuildJsonPayLoad.BuildJsonPayload;
+import Utilities.BuildJsonPayLoad.Location;
+
 public class PayLoad  {
 	
-	public static String getPayLoad()
+	@DataProvider(name="data")
+	public static String getPayLoad(String lat,String lng)
 	{
 		{
 			return "{\r\n" + 
 					"  \"location\": {\r\n" + 
-					"    \"lat\": -38.383494,\r\n" + 
-					"    \"lng\": 33.427362\r\n" + 
+					"    \"lat\": "+lat+",\r\n" + 
+					"    \"lng\": "+lng+"\r\n" + 
 					"  },\r\n" + 
 					"  \"accuracy\": 50,\r\n" + 
 					"  \"name\": \"Rahul Shetty Academy\",\r\n" + 
@@ -111,5 +120,24 @@ public class PayLoad  {
 
 	}
 
+	public void buildPayload() {
+
+		BuildJsonPayload p=new BuildJsonPayload();
+		
+		p.setAccuracy(50);
+		p.setAddress("29, side layout, cohen 09");
+		p.setLanguage("French-IN");
+		p.setName("Rahul Shetty Academy");
+		p.setPhone_number("(+91) 983 893 3937");
+		p.setWebsite("http://rahulshettyacademy.com");
+		List<String> typesval=new ArrayList<String>();
+		typesval.add("shoe park");
+		typesval.add("shop");
+		p.setTypes(typesval);		
+		Location l=new Location();
+		l.setLat(-38.383494);
+		l.setLng(33.427362);
+		p.setLocation(l);
+	}
 
 }

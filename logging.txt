@@ -27,7 +27,7 @@ Body:
     "language": "French-IN"
 }
 HTTP/1.1 200 OK
-Date: Sun, 03 May 2026 15:44:51 GMT
+Date: Wed, 13 May 2026 11:08:40 GMT
 Server: Apache/2.4.52 (Ubuntu)
 Strict-Transport-Security: max-age=604800; includeSubDomains
 Access-Control-Allow-Origin: *
@@ -41,8 +41,8 @@ Content-Type: application/json;charset=UTF-8
 
 {
     "status": "OK",
-    "place_id": "19e203af516782bb08a5354d67bfcdc1",
+    "place_id": "28426564fc0798473c3b8a5a0e8a415d",
     "scope": "APP",
-    "reference": "e9c9801662d96b69ed455f9c5d9da7c5e9c9801662d96b69ed455f9c5d9da7c5",
-    "id": "e9c9801662d96b69ed455f9c5d9da7c5"
+    "reference": "eeea3cb9b882d4b6775df5e1820a1610eeea3cb9b882d4b6775df5e1820a1610",
+    "id": "eeea3cb9b882d4b6775df5e1820a1610"
 }
