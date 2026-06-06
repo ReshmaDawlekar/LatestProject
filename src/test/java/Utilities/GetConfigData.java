@@ -1,4 +1,4 @@
-package WebDriverManager;
+package Utilities;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -70,6 +70,10 @@ public class GetConfigData {
 	}
 	public static String getBaseURI() {
 		String path=prop.getProperty("baseURI");
+		return path;
+	}
+	public static String getBaseURI(String type) {
+		String path=prop.getProperty(type+"baseURI");
 		return path;
 	}
 }

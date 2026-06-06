@@ -24,6 +24,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import Utilities.GetConfigData;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Drivermanager {

@@ -1,6 +1,8 @@
 package Utilities;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.Set;
 
 import org.openqa.selenium.Alert;
@@ -168,5 +170,15 @@ public class CommonUtils extends TestContext {
 			js.executeScript("window.scrollTo(0,document.body.scrollHeight);");
 			break;
 		}
+	}
+	
+	public static String getUniqueDateTime()
+	{
+		String newDateTime="";
+		Date d=new Date();
+		SimpleDateFormat sdf=new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss");
+		newDateTime = sdf.format(d);
+		
+		return newDateTime;
 	}
 }

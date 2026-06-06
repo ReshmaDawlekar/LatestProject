@@ -11,48 +11,24 @@ public class RestAssuredStepDefinations {
 	public RestAssuredStepDefinations(RestAssuredPageObjects restAssuredPageObjects) {
 		this.restAssuredPageObjects = restAssuredPageObjects;
 	}
-	@Given("User calls {string} payload")
+	
+	@Given("User calls {string} Request")
 	public void callPayload(String payloadAction) {
-		System.out.println("payload is called");
-		
-		switch(payloadAction)
-		{
-		case "Add Place":
-			restAssuredPageObjects.addPlacePayload();
-			break;
-		case "Delete Place":
-			break;
-			
-		}
+		System.out.println(payloadAction + ": payload is called");
+		restAssuredPageObjects.requestSpecBuildingAPI(payloadAction);
 	}
-	@When("user calls the {string}")
-	public void callAPI(String APIName) {
-		switch(APIName)
-		{
-		case "PostAPI":
-			restAssuredPageObjects.postAPI();
-			break;
-		case "GetAPI":
-			break;
-			
-		}
-	}
+	
+	@When("User request call for {string}")
+	public void callAPI(String resourcePathName) {
+		restAssuredPageObjects.httpRequest(resourcePathName);
+    }
+	@When("User request call for {string} with {string} value {string}")
+	public void callAPI(String resourcePathName,String pathParamKey,String pathParamValue) {
+		restAssuredPageObjects.httpRequest(resourcePathName,pathParamKey,pathParamValue);
+    }
     @Then("{string} must be added with response code for {string}")
 	public void validateResponseCode(String keyVal,String statusCode) {
-    	
-    	switch(statusCode)
-		{
-		case "200":
-			restAssuredPageObjects.statusCodeValidation(keyVal,statusCode);
-			break;
-		case "300":
-			break;
-		case "400":
-			break;
-		case "500":
-			break;
-			
-		}
-
+    	restAssuredPageObjects.statusCodeValidation(keyVal,statusCode);    	
 	}
+   
 }

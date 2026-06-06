@@ -9,7 +9,8 @@ public class ExtentManager {
 	
 	public static ExtentReports getInstance()
     {
-		ExtentSparkReporter spark=new ExtentSparkReporter(System.getProperty("user.dir")+"//test-output//ExtentReport.html");
+		String uniqueDateTime=CommonUtils.getUniqueDateTime();
+		ExtentSparkReporter spark=new ExtentSparkReporter(System.getProperty("user.dir")+"//test-output//CustomReports//ExtentReport_"+uniqueDateTime+"//ExtentReport.html");
 		spark.config().setReportName("Automation Test Report");
 		spark.config().setDocumentTitle("Test Results");
 		extent.attachReporter(spark);

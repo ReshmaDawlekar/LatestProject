@@ -12,7 +12,7 @@ plugin= {"pretty","html:target/cucumber.html", "json:target/cucumber.json",
 public class TestRunnerAPI extends AbstractTestNGCucumberTests{
 
 	@Override
-	@DataProvider(parallel=true)
+	@DataProvider(parallel=false)
 	public Object[][] scenarios()
 	{
 		return super.scenarios();
